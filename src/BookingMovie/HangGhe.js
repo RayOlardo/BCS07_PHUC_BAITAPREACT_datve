@@ -29,12 +29,12 @@ class HangGhe extends Component {
       
       // Xét trạng thái đang đặt
       // console.log(this.props.listGheDangDat)
-      console.log(Array.isArray(this.props.listGheDangDat.listGheDangDat));
+      // console.log(Array.isArray(this.props.listGheDangDat.listGheDangDat));
       let cssGheDangDat = "";
       let indexGheDangDat = this.props.listGheDangDat.listGheDangDat.findIndex(
         gheDangDat => gheDangDat.soGhe == ghe.soGhe
       );
-      console.log(indexGheDangDat)
+      // console.log(indexGheDangDat)
       if (indexGheDangDat !== -1) {
         cssGheDangDat = "gheDangChon";
       }

@@ -2,9 +2,36 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { huyGheAction } from "../redux/actions/bookingActions";
 
-
 class ThongTinDatGhe extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      totalAmount: 0,
+    };
+  }
+
+  // calculateTotalAmount = () => {
+  //   const { listGheDangDat } = this.props;
+  //   let totalAmount = 0;
+  //   listGheDangDat.forEach(item => {
+  //     totalAmount += item.gia;
+  //   });
+  //   return totalAmount;
+  // }
+  calculateTotalAmount = () => {
+    const { listGheDangDat } = this.props.listGheDangDat;
+    let totalAmount = 0;
+    // listGheDangDat.forEach((item) => {
+    // });
+    for (let i = 0; i < listGheDangDat.length; i++) {
+      totalAmount += listGheDangDat[i].gia;
+    }
+    return totalAmount;
+  };
   render() {
+    const { listGheDangDat, huyGhe } = this.props;
+    console.log(this.props.listGheDangDat);
+    const totalAmount = this.calculateTotalAmount()
     return (
       <div className="mt-5">
         <button className="gheDuocChon"></button>
@@ -38,17 +65,22 @@ class ThongTinDatGhe extends Component {
                     <td>{item.soGhe}</td>
                     <td>{item.gia}</td>
                     <td>
-                      <button
+                      <i
+                        role="button"
                         onClick={() => {
-                          this.props.huyGhe(item.soGhe)
+                          this.props.huyGhe(item.soGhe);
                         }}
-                      >
-                        Huỷ
-                      </button>
+                        class="fa-solid fa-x text-danger"
+                      ></i>
                     </td>
                   </tr>
                 );
               })}
+              <tr>
+                <td>Tổng tiền</td>
+                <td>{totalAmount}</td>
+                <td></td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -63,11 +95,11 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps=(dispatch) => { 
-  return{
+const mapDispatchToProps = (dispatch) => {
+  return {
     huyGhe: (soGhe) => {
       dispatch(huyGheAction(soGhe));
-    }
-  }
- }
-export default connect(mapStateToProps,mapDispatchToProps)(ThongTinDatGhe);
+    },
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(ThongTinDatGhe);
